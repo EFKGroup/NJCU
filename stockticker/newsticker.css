@@ -1,0 +1,95 @@
+.ttibody { margin:0;padding:0;background-color:#fff; }
+/* .ttibody { margin:0;padding:0;background-color:#fff; } */
+/* .ttibody { margin:0;padding:0;background-color:#282C33; } */
+.ttiunch { color: #FFFFFF; }
+
+.ttiup { color: #FFF; }
+/* .ttiup { color: #FFCE00; } */
+/* .ttiup { color: #B3E4BD; } */
+
+.ttidown { color: #FAC4C4; }
+/* .ttidown { color: #FFCE00; } */
+/* .ttidown { color: #FAC4C4; } */
+
+.tickeroverlay-left{
+/*	background-image:url('http://www.tickertech.com/njcu/ticker/left.png'); */
+	display:block;
+	pointer-events:none;
+	position:absolute;
+	z-index:30;
+	height:12px;
+	width:150px;
+	top:0;
+	left:-2px;
+}
+
+.tickeroverlay-right{
+	/* background-image:url('http://www.tickertech.com/njcu/ticker/right.png'); */
+	display:block;
+	pointer-events:none;
+	position:absolute;
+	z-index:30;
+	height:12px;
+	width:150px;
+	top:0;
+	right:-2px;
+}
+.tickercontainer { 
+/* background: #282C33;  */
+/* background: #00806E; */
+background: #006756;
+width: 679px; 
+/* width: 938px; */
+height: 34px; 
+/* height: 30px; */
+margin: 0 auto; 
+padding: 0;
+overflow: hidden; 
+}
+.tickercontainer .mask { 
+position: relative;
+padding-left: 10px;
+padding-right: 10px;
+top: 8px;
+height: 18px;
+overflow: hidden;
+}
+ul.newsticker { 
+-webkit-transition: all 0s linear;
+-moz-transition: all 0s linear;
+-o-transition: all 0s linear;
+transition: all 0s linear;
+position: relative;
+margin-left: 20px;
+font: bold 13px Verdana;
+/* color: #FFFFFF;  */
+/* color: #E8700C; */
+color: #bbb;
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+ul.newsticker li {
+float: left;
+margin: 0;
+padding-right: 15px;
+}
+ul.newsticker a {
+white-space: nowrap;
+padding: 0;
+color: #ff0000;
+font: bold 10px Verdana;
+margin: 0 50px 0 0;
+} 
+ul.newsticker span {
+margin: 0 10px 0 0;
+} 
+#webticker2{
+	float:right;
+}
+#webticker2 li {
+float: right;
+margin: 0;
+padding-left: 15px;
+}
+

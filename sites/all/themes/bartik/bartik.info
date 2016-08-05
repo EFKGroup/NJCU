@@ -1,0 +1,64 @@
+
+name = Bartik
+description = A flexible, recolorable theme with many regions.
+package = Core
+version = VERSION
+core = 7.x
+
+stylesheets[all][] = css/fonts.css
+stylesheets[all][] = css/jquery.icalendar.css
+stylesheets[all][] = css/layout.css
+stylesheets[all][] = css/style.css
+
+stylesheets[all][] = css/responsive.css
+
+
+stylesheets[print][] = css/print.css
+
+
+scripts[] = js/show-hide-navabar.js
+scripts[] = js/jquery.icalendar.js
+scripts[] = js/jquery-scrolltofixed.js
+scripts[] = js/slider.js
+scripts[] = js/script-v-1.js
+
+scripts[] = js/jquery-ui-1.8.22.custom.min.js
+scripts[] = js/jquery.imagesloaded.min.js
+scripts[] = js/jquery.transit.min.js
+
+
+regions[popup_header] = PopUp Header
+regions[header_top] = Header top
+regions[header] = Header
+regions[slider_hero] = Slider/Hero
+regions[help] = Help
+regions[page_top] = Page top
+regions[page_bottom] = Page bottom
+regions[highlighted] = Highlighted
+
+regions[content_top] = Content Top
+regions[content] = Content
+regions[content_bottom] = Content Bottom
+regions[content_builder] = Content Builder
+
+regions[social_col1] = Social Column 1
+regions[social_col2] = Social Column 2
+regions[social_col3] = Social Column 3
+regions[social_col4] = Social Column 4
+regions[social_col5] = Social Column 5
+regions[social_col6] = Social Column 6
+regions[social_col7] = Social Column 7
+regions[social_col8] = Social Column 8
+
+regions[footer] = Footer
+
+settings[shortcut_module_link] = 0
+
+
+
+; Information added by Drupal.org packaging script on 2015-10-21
+version = "7.41"
+project = "drupal"
+datestamp = "1445457729"
+
+
