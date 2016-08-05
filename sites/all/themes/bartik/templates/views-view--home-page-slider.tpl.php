@@ -122,8 +122,8 @@ $counter = 1;
             // so just give them the poster images instead
             var screenIndex = 1,
                 numScreens = $('.screen').length,
-                isTransitioning = false,
-                transitionDur = 1000,
+                isTransitioning = true,
+                transitionDur = 2000,
                 BV,
                 videoPlayer,
                 isTouch = Modernizr.touch,
