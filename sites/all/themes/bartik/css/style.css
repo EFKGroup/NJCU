@@ -3584,3 +3584,36 @@ z-index:999999999;
 .media-element-container .file-image .field-name-field-file-image-alt-text,
 .media-element-container .file-image .field-name-field-file-image-title-text{ display:none!important;}
 
+
+/* Arrow bottom of slider */
+
+div.container-row.contextual-links-region{
+    position: absolute;
+    bottom: 14px;
+    z-index: 9;
+    left: 49%;
+}
+
+div.container-row.contextual-links-region a.prev-icon.arrow-bottom{
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  color: transparent;
+  width: 20px;
+  height: 20px;
+}
+div.container-row.contextual-links-region a.prev-icon.arrow-bottom:hover {
+  text-decoration: none;
+  opacity: .6;
+}
+
+/* Social Feeds */
+
+body:not(.page-node-add):not(.page-node-edit) li.social-feed-item-1,
+body:not(.page-node-add):not(.page-node-edit) li.social-feed-item-2,
+body:not(.page-node-add):not(.page-node-edit) li.social-feed-item-3{
+  line-height: 0px !important;
+}
+
