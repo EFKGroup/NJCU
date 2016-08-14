@@ -122,8 +122,8 @@ $counter = 1;
             // so just give them the poster images instead
             var screenIndex = 1,
                 numScreens = $('.screen').length,
-                isTransitioning = true,
-                transitionDur = 2000,
+                isTransitioning = false,
+                transitionDur = 500,
                 BV,
                 videoPlayer,
                 isTouch = Modernizr.touch,
@@ -175,6 +175,13 @@ $counter = 1;
                     prev();
                 }
             });
+
+            // Auto loop
+            setInterval(function() {
+                if (!isTransitioning) {
+                    next();
+                }
+            }, 5000);
 
             function showVideo() {
 				//if($('#screen-'+screenIndex).attr('data-video') != ''){
