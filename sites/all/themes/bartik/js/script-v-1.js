@@ -178,9 +178,9 @@ jQuery(function($){
 		//$("a.youtube.cboxElement").colorbox({iframe:true, width:"100%", height:"100%", scrolling:false, fixed:true, top:0, left:0, right:0, bottom:0});
 		//return false;
 	}
-	if($('a.pop-up-video-button').length > 0){
+	if($('a.pop-up-video-click').length > 0){
 		var popVideo = document.getElementById("popVideo");
-		$('a.pop-up-video-button').click(function(){
+		$('a.pop-up-video-click').click(function(){
 			 $('body').addClass('overFlowHidden');	
 		 	var $thisVideo = $(this);
 			var showVideoContainer = $('.videoContainer');

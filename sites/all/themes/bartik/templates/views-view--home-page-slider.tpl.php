@@ -79,8 +79,11 @@ $counter = 1;
 		 <div class="slider-text-wrap <?php echo ($item['field_pop_up_video'] ? 'hasPop' : '')?>">
 			<h1 class="video-title"><?php echo trim(strip_tags($item['title']));?></h1>
 			<?php if($item['field_pop_up_video']){
-				echo '<a href="'.trim(strip_tags($item['field_pop_up_video'])).'" data-slider="slider-'.$counter.'" class="pop-up-video-button"><span class="btn-title">Play Video</span></a>';
+				echo '<a href="'.trim(strip_tags($item['field_pop_up_video'])).'" data-slider="slider-'.$counter.'" class="pop-up-video-button pop-up-video-click"><span class="btn-title">Play Video</span></a>';
 			}
+            if($item['field_external_url']){
+                echo $item['field_external_url'];
+            }
 			?>
 			<a href="/academic-departments" class="button brows-program"><span class="btn-title">browse our programs</span></a>
 			<a href="http://www.youvisit.com/njcu?pl=v" class="button take-tour"><span class="btn-title">take a tour</span></a>
