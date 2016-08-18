@@ -3620,6 +3620,13 @@ z-index:999999999;
     padding:0 !important;
 }
 
+@media (max-width: 415px){
+    #block-block-16{
+        bottom: 120px;
+        left: 45%;
+    }
+}
+
 
 
 
