@@ -76,7 +76,7 @@ $counter = 1;
 		 	echo '<div class="blk-overlay"></div>';
 			echo '<img src="/sites/default/files/transparent-bg.png" class="big-image transparent">';
 		 }// end if?>
-		 <div class="slider-text-wrap <?php echo ($item['field_pop_up_video'] ? 'hasPop' : '')?>">
+		 <div class="slider-text-wrap <?php echo (($item['field_pop_up_video'] || $item['field_external_url']) ? 'hasPop' : '')?>">
 			<h1 class="video-title"><?php echo trim(strip_tags($item['title']));?></h1>
 			<?php if($item['field_pop_up_video']){
 				echo '<a href="'.trim(strip_tags($item['field_pop_up_video'])).'" data-slider="slider-'.$counter.'" class="pop-up-video-button pop-up-video-click"><span class="btn-title">Play Video</span></a>';
