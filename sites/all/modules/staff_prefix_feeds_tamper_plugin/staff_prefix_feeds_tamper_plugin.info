@@ -1,0 +1,8 @@
+name = Staff Tamper
+description = Provides a extra plugin tamper for staff
+core = 7.x
+package = Feeds
+dependencies[] = feeds
+files[] = includes/staff_tamper.inc
+files[] = staff_prefix_feeds_tamper_plugin.module
+

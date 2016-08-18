@@ -1,0 +1,9 @@
+<?php
+// prefix_feeds_tamper_plugin.module
+function staff_prefix_feeds_tamper_plugin_ctools_plugin_directory($owner, $plugin_type) {
+  
+  if ($owner == 'feeds_tamper' && $plugin_type == 'plugins') {
+  	dpm('Inside if module');
+  }
+}
+
