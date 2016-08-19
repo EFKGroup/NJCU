@@ -3,17 +3,120 @@ $export = array();
 $feeds_tamper = new stdClass();
 $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
 $feeds_tamper->api_version = 2;
+$feeds_tamper->id = 'staff_migrate-dept-copy';
+$feeds_tamper->importer = 'staff_migrate';
+$feeds_tamper->source = 'Dept';
+$feeds_tamper->plugin_id = 'copy';
+$feeds_tamper->settings = array(
+  'to_from' => 'to',
+  'source' => 'group',
+);
+$feeds_tamper->weight = 3;
+$feeds_tamper->description = 'Copy source value';
+
+$export[$feeds_tamper->id] = $feeds_tamper;
+
+$feeds_tamper = new stdClass();
+$feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+$feeds_tamper->api_version = 2;
+$feeds_tamper->id = 'staff_migrate-dept-staff_tamper';
+$feeds_tamper->importer = 'staff_migrate';
+$feeds_tamper->source = 'Dept';
+$feeds_tamper->plugin_id = 'staff_tamper';
+$feeds_tamper->settings = array(
+  'staff' => 'department',
+);
+$feeds_tamper->weight = 4;
+$feeds_tamper->description = 'Staff';
+
+$export[$feeds_tamper->id] = $feeds_tamper;
+
+$feeds_tamper = new stdClass();
+$feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+$feeds_tamper->api_version = 2;
 $feeds_tamper->id = 'staff_migrate-email-find_replace_regex';
 $feeds_tamper->importer = 'staff_migrate';
 $feeds_tamper->source = 'Email';
 $feeds_tamper->plugin_id = 'find_replace_regex';
 $feeds_tamper->settings = array(
-  'find' => '(\\w+)',
+  'find' => '/(\\w+)/',
   'replace' => '$1@njcu.edu',
   'limit' => '1',
   'real_limit' => '1',
 );
 $feeds_tamper->weight = 0;
 $feeds_tamper->description = 'Find replace REGEX';
+
+$export[$feeds_tamper->id] = $feeds_tamper;
+
+$feeds_tamper = new stdClass();
+$feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+$feeds_tamper->api_version = 2;
+$feeds_tamper->id = 'staff_migrate-fname-find_replace';
+$feeds_tamper->importer = 'staff_migrate';
+$feeds_tamper->source = 'Fname';
+$feeds_tamper->plugin_id = 'find_replace';
+$feeds_tamper->settings = array(
+  'find' => '-',
+  'replace' => ' ',
+  'case_sensitive' => 0,
+  'word_boundaries' => 0,
+  'whole' => 0,
+  'regex' => FALSE,
+  'func' => 'str_ireplace',
+);
+$feeds_tamper->weight = 0;
+$feeds_tamper->description = 'Find replace';
+
+$export[$feeds_tamper->id] = $feeds_tamper;
+
+$feeds_tamper = new stdClass();
+$feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+$feeds_tamper->api_version = 2;
+$feeds_tamper->id = 'staff_migrate-fullname-rewrite';
+$feeds_tamper->importer = 'staff_migrate';
+$feeds_tamper->source = 'FullName';
+$feeds_tamper->plugin_id = 'rewrite';
+$feeds_tamper->settings = array(
+  'text' => '[lname] [fname]',
+);
+$feeds_tamper->weight = 0;
+$feeds_tamper->description = 'Rewrite';
+
+$export[$feeds_tamper->id] = $feeds_tamper;
+
+$feeds_tamper = new stdClass();
+$feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+$feeds_tamper->api_version = 2;
+$feeds_tamper->id = 'staff_migrate-group-staff_tamper';
+$feeds_tamper->importer = 'staff_migrate';
+$feeds_tamper->source = 'Group';
+$feeds_tamper->plugin_id = 'staff_tamper';
+$feeds_tamper->settings = array(
+  'staff' => 'group',
+);
+$feeds_tamper->weight = 7;
+$feeds_tamper->description = 'Staff';
+
+$export[$feeds_tamper->id] = $feeds_tamper;
+
+$feeds_tamper = new stdClass();
+$feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+$feeds_tamper->api_version = 2;
+$feeds_tamper->id = 'staff_migrate-lname-find_replace';
+$feeds_tamper->importer = 'staff_migrate';
+$feeds_tamper->source = 'Lname';
+$feeds_tamper->plugin_id = 'find_replace';
+$feeds_tamper->settings = array(
+  'find' => '-',
+  'replace' => ' ',
+  'case_sensitive' => 0,
+  'word_boundaries' => 0,
+  'whole' => 0,
+  'regex' => FALSE,
+  'func' => 'str_ireplace',
+);
+$feeds_tamper->weight = 0;
+$feeds_tamper->description = 'Find replace';
 
 $export[$feeds_tamper->id] = $feeds_tamper;
