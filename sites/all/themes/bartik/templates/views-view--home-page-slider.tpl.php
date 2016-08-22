@@ -174,7 +174,7 @@ $counter = 1;
 			 // Next button click goes to next div
             $('#prev-btn').on('click', function(e) {
                 e.preventDefault();
-                if (!isTransitioning) {
+                if (numScreens > 1 && !isTransitioning) {
                     prev();
                 }
             });
