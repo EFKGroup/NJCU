@@ -1,17 +1,12 @@
 <?php
-// plugins/list_prefix.inc
 
-// plugin info, you can copy from feeds tamper module's plugins
 $plugin = array(
   'form' => 'staff_feeds_tamper_plugin_form',
   'callback' => 'staff_feeds_tamper_plugin_callback',
   'name' => 'Staff',
-  //'multi' => 'direct',
-  //'single' => 'skip',
   'category' => 'List',
 );
 
-// form API being used, also copying from feeds tamper
 function staff_feeds_tamper_plugin_form($importer, $element_key, $settings) {
   $form = array();
   $form['staff'] = array(
@@ -23,12 +18,8 @@ function staff_feeds_tamper_plugin_form($importer, $element_key, $settings) {
   return $form;
 }
 
-
-// this is the real logic, notice that $fields can be String or an Array, depends on the definition of this plugin
 function staff_feeds_tamper_plugin_callback($result, $item_key, $element_key, &$field, $settings) {
   $out = 0;
-
-
   $query = new EntityFieldQuery();
 
   $query->entityCondition('entity_type', 'node')
