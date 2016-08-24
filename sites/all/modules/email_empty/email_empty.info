@@ -1,0 +1,6 @@
+name = Email Empty
+description = Skip nodes with email blank
+core = 7.x
+package = Feeds
+dependencies[] = feeds
+files[] = email_empty.module
