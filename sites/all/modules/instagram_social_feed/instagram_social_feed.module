@@ -396,7 +396,7 @@ function instagram_social_feed_contents($which_block, $results, $more = '') {
         }
         $html[] = '<li class="' . implode(' ', $classes) . '">';
         $html[] = '<a href="' . $row['instagram_link'] . '" target="_blank">';
-        $html[] = '<img src="' . $row['low_resolution'];
+        $html[] = '<img src="' . str_replace('s150x150/', 's320x320/', $row['thumbnail']);
         $html[] = '" width="180" height="180" alt="' . $caption . '" />';
         $html[] = '</a>';
         $html[] = '</li>';
