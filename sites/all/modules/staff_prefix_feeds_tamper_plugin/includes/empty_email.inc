@@ -15,11 +15,7 @@ function empty_email_tamper_plugin_callback($result, $item_key, $element_key, &$
 
   if ($field == '') {
      $skip = &$entity->feeds_item->skip;
-     //∂dpm(&$entity->feeds_item);
-     //&$entity->feeds_item->skip = TRUE;
-     //$entity->feeds_item->skip = TRUE;
      $skip = TRUE;
-     //dpm(&$entity->feeds_item);
   }
 
 }
