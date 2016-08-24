@@ -13,7 +13,7 @@ $plugin = array(
 function empty_email_tamper_plugin_callback($result, $item_key, $element_key, &$field, $settings) {
   $out = 0;
 
-  if ($field == '') {
+  if (empty($field)) {
      $skip = &$entity->feeds_item->skip;
      $skip = TRUE;
   }
