@@ -1,0 +1,7 @@
+name = Feeds Tamper Import
+description = Implements tamper plugin import feature for Feeds Tamper
+package = Feeds
+core = 7.x
+
+version = "7.x-1.0"
+dependencies[] = feeds_tamper
