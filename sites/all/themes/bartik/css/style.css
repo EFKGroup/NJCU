@@ -3586,7 +3586,7 @@ z-index:999999999;
 
 
 /* Arrow bottom of slider */
-#block-block-16{
+#block-block-14{
     position: absolute;
     bottom: 14px;
     z-index: 9;
@@ -3621,8 +3621,8 @@ z-index:999999999;
 }
 
 @media (max-width: 415px){
-    #block-block-16{
-        bottom: 120px;
+    #block-block-14{
+        bottom: 140px;
         left: 45%;
     }
 }
