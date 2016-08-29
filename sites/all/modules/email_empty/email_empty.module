@@ -1,0 +1,14 @@
+<?php
+
+function email_empty_feeds_presave(FeedsSource $source, $entity, $item) {
+
+  if ($entity->feeds_item->entity_type == 'node' && $entity->type == 'facultystaff') {
+  	$email = field_get_items('node', $entity, 'field_email')[0]['email'];
+
+  	if ($email == '') {
+    	// Skip saving this entity if email is empty.
+    	$entity->feeds_item->skip = TRUE;
+  	}
+  }
+
+}
