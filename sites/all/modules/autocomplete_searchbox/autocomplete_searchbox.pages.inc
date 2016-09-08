@@ -166,24 +166,34 @@ function theme_search_dropdown($variables) {
     $label = $variables['label'];
   }
 
-  // Return result set accordingly.
+  // Return result set according to defined color sets.
   if (!empty($result)) {
     foreach ($result as $result_value) {
 
       if ($type == 'node') {
         $fcolor = variable_get('autocomplete_searchbox_fcolor_' . $label, '');
+        $fcolor = ($fcolor == '') ? variable_get('autocomplete_searchbox_ctype_color', '') : $fcolor;
+
         $bcolor = variable_get('autocomplete_searchbox_bgcolor_' . $label, '');
+        $bcolor = ($bcolor == '') ? variable_get('autocomplete_searchbox_ctype_bgcolor', '') : $bcolor;
       }
 
       if ($type == 'term') {
         $value = preg_replace('/\s/', '_', $result_value);
+
         $fcolor = variable_get('autocomplete_searchbox_fcolor_' . $value, '');
+        $fcolor = ($fcolor == '') ? variable_get('autocomplete_searchbox_term_color', '') : $fcolor;
+
         $bcolor = variable_get('autocomplete_searchbox_bgcolor_' . $value, '');
+        $bcolor = ($bcolor == '') ? variable_get('autocomplete_searchbox_term_bgcolor', '') : $bcolor;
       }
 
       if ($type == 'user') {
         $fcolor = variable_get('autocomplete_searchbox_user_fcolor', '');
+        $fcolor = ($fcolor == '') ? variable_get('autocomplete_searchbox_user_color', '') : $fcolor;
+
         $bcolor = variable_get('autocomplete_searchbox_user_bgcolor', '');
+        $bcolor = ($bcolor == '') ? variable_get('autocomplete_searchbox_user_dbgcolor', '') : $bcolor;
       }
 
       // Output.

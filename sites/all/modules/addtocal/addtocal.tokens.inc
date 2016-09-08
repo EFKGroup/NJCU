@@ -13,27 +13,14 @@ function addtocal_token_info_alter(&$info) {
 
   foreach ($entities as $entity_name => $fields) {
     foreach ($fields as $field_name => $display) {
-      if (!array_key_exists($field_name,$info['tokens'][$entity_name])) {
-        $info['tokens'][$entity_name][$field_name] = array(
-          'addtocal' => array(
-            'name' => t('Add to cal'),
-            'description' => t("Rendered AddToCal html block, suitable for onsite use or in the body of an email message."),
-            'module' => 'addtocal',
-            'type' => 'date',
-          ),
-        );
-      } else if (!array_key_exists('addtocal', $info['tokens'][$entity_name][$field_name])) {
-        $info['tokens'][$entity_name][$field_name]['addtocal'] = array(
-          'name' => t('Add to cal'),
-          'description' => t("Rendered AddToCal html block, suitable for onsite use or in the body of an email message."),
-          'module' => 'addtocal',
-          'type' => 'date',
-        );
-      }
+      $info['tokens'][$entity_name][$field_name]['addtocal'] = array(
+        'name' => t('Add to cal'),
+        'description' => t("Rendered AddToCal html block, suitable for onsite use or in the body of an email message."),
+        'module' => 'addtocal',
+        'type' => 'date',
+      );
     }
   }
-
-  echo '';
 }
 
 /**

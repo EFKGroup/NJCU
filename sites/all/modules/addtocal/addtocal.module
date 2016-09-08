@@ -10,9 +10,7 @@
 function addtocal_menu() {
 
   $items = array();
-
-  global $user;
-
+  
   foreach (addtocal_get_addtocal_entities() as $entity_name => $values) {
     $items[$entity_name . '/%entity_object/%/%/addtocal.ics'] = array(
       'load arguments' => array($entity_name),
@@ -41,6 +39,19 @@ function addtocal_menu() {
   }
 
   return $items;
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function addtocal_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'token_info_alter') {
+    // This is sometimes happening before the token module adds fields. Lets
+    // move it down in order to make it so it doesn't cause tokens to not
+    // run for date fields.
+    unset($implementations['addtocal']);
+    $implementations['addtocal'] = 'tokens';
+  }
 }
 
 /**
@@ -419,27 +430,35 @@ function addtocal_extract_event_info($entity_type, $entity, $entity_id, $field_n
 
   $timezone = $dates[0]['timezone_db'];
 
-  $location = addtocal_field_get_value($entity_type, $entity, $display['settings']['location']);
-  $description = addtocal_field_get_value($entity_type, $entity, $display['settings']['description']);
-
-  if (strlen($description) > 1024) {
-    $description = truncate_utf8($description, 1024, TRUE, TRUE);
+  if (isset($display['settings']['location_field'])) {
+    $location = addtocal_field_get_value($entity_type, $entity, $display['settings']['location_field']);
+  }
+  if (isset($display['settings']['description_field'])) {
+    $description = addtocal_field_get_value($entity_type, $entity, $display['settings']['description_field']);
+    if (strlen($description) > 1024) {
+      $description = truncate_utf8($description, 1024, TRUE, TRUE);
+    }
   }
 
   $uri = entity_uri($entity_type, $entity);
   $url = $uri['path'];
 
-  return array(
-    'title' => check_plain($entity->title),
-    'start' => $start_date,
-    'end' => $end_date,
-    'timezone' => $timezone,
-    'location' => $location,
-    'description' => $description,
-    'entity_id' => $entity_id,
+  $info = array(
+    'title'       => check_plain($entity->title),
+    'start'       => $start_date,
+    'end'         => $end_date,
+    'timezone'    => $timezone,
+    'location'    => isset($location) ? $location : NULL,
+    'description' => isset($description) ? $description : NULL,
+    'entity_id'   => $entity_id,
     'entity_type' => $entity_type,
-    'url' => $url,
+    'url'         => $url,
   );
+
+  // Allow other modules to directly alter the addtocal info.
+  drupal_alter('addtocal_extract_event_info', $info, $entity_type, $entity);
+
+  return $info;
 }
 
 /**
@@ -516,7 +535,14 @@ function addtocal_rfc_3339_date($start, $end, $timezone) {
   }
 
   $tz_utc = new DateTimeZone('UTC');
-  $tz = new DateTimeZone($timezone);
+  // When $timezone is an empty string no default is used and we see a Unknown or bad timezone () in DateTimeZone->__construct() error.
+  if (empty($timezone)) {
+    $tz = NULL;
+  }
+  else {
+    $tz = new DateTimeZone($timezone);
+  }
+
 
   $startDate = new DateTime($start, $tz);
   $startDate->setTimezone($tz_utc);
@@ -597,7 +623,7 @@ DTSTAMP:' . $rfc_dates['start'] . '
 DTSTART:' . $rfc_dates['start'] . '
 DTEND:' . $rfc_dates['end'] . '
 SUMMARY:' . check_plain($title) . '
-DESCRIPTION: ' . $description . ' - ' . url($url, array('absolute' => TRUE)) . '
+DESCRIPTION:' . $description . '
 LOCATION:' . $location . '
 END:VEVENT
 END:VCALENDAR';
@@ -662,8 +688,8 @@ function addtocal_yahoo_link($entity, $field_name, $view_mode) {
     'query' => array(
       'v' => 60,
       'TITLE' => $info['title'],
-      'ST' => $rfc_dates['local_start'],
-      'ET' => $rfc_dates['local_end'],
+      'ST' => $rfc_dates['start'],
+      'ET' => $rfc_dates['end'],
       'URL' => $_SERVER['HTTP_HOST'],
       'in_loc' => $info['location'],
       'desc' => $info['description'],

@@ -17,6 +17,17 @@ function autocomplete_searchbox_help($path, $arg) {
 }
 
 /**
+ * Implements hook_init().
+ */
+function autocomplete_searchbox_init() {
+  if (variable_get('autocomplete_searchbox_auto_select', '0')) {
+    if (current_path() != 'admin/config/search/autocomplete-search-config') {
+      drupal_add_js(drupal_get_path('module', 'autocomplete_searchbox') . '/js/autocomplete_searchbox.js');
+    }
+  }
+}
+
+/**
  * Implements hook_permission().
  */
 function autocomplete_searchbox_permission() {
@@ -37,7 +48,7 @@ function autocomplete_searchbox_permission() {
  */
 function autocomplete_searchbox_menu() {
   $items['admin/config/search/autocomplete-search-config'] = array(
-    'title' => 'Search box configuration',
+    'title' => 'Autocomplete Searchbox',
     'description' => 'Configuration settings for drupal search box',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('autocomplete_searchbox_config'),
@@ -95,6 +106,7 @@ function autocomplete_searchbox_theme() {
  */
 function autocomplete_searchbox_form_search_block_form_alter(&$form, &$form_state, $form_id) {
   $form['search_block_form']['#attributes']['placeholder'] = variable_get('autocomplete_searchbox_placeholder', t('Explore'));
+  $form['search_block_form']['#attributes']['class'][] = 'autocomplete_search_text';
 
   // Make autocomplete optional.
   if (variable_get('autocomplete_searchbox_searchbox_autocomplete', '1')) {
@@ -133,5 +145,51 @@ function autocomplete_searchbox_set_permissions($form, &$form_state) {
     user_role_change_permissions($rid, array(
       'access autocomplete search' => $value,
     ));
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ *
+ * Select all new terms automatically.
+ */
+function autocomplete_searchbox_entity_insert($entity, $type) {
+  $autoselect = variable_get('autocomplete_searchbox_autoselect', '0');
+  if ($autoselect) {
+    if ($type == 'taxonomy_term') {
+      $existing = variable_get('autocomplete_searchbox_terms', array());
+      $new = array($entity->name => $entity->name);
+      variable_set('autocomplete_searchbox_terms', array_merge($existing, $new));
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ *
+ * Update all the selected terms on deletion.
+ */
+function autocomplete_searchbox_entity_delete($entity, $type) {
+  if ($type == 'taxonomy_term') {
+    $existing = variable_get('autocomplete_searchbox_terms', array());
+    $name = $entity->name;
+    if (array_key_exists($name, $existing)) {
+      unset($existing[$name]);
+      variable_set('autocomplete_searchbox_terms', array_merge($existing));
+    }
+  }
+}
+
+/**
+ * Implements hook_node_type_insert().
+ *
+ * Select all new content types automatically.
+ */
+function autocomplete_searchbox_node_type_insert($info) {
+  $autoselect = variable_get('autocomplete_searchbox_autoselect', '0');
+  if ($autoselect) {
+    $existing = variable_get('autocomplete_searchbox_content_types', array());
+    $new = array($info->type => $info->type);
+    variable_set('autocomplete_searchbox_content_types', array_merge($existing, $new));
   }
 }

@@ -17,9 +17,6 @@
       <?php endif; ?>
       <?php if ($item->type === 'question'): ?>
         <?php echo $item->question; ?>
-        <?php foreach ($item->options as $option):?>
-          <span><?php echo $option; ?></span>
-        <?php endforeach; ?>
       <?php endif; ?>
     </span>
     <span class="facebook-feed-time"><?php echo t('!time ago.', array('!time' => format_interval(time() - strtotime($item->created_time)))); ?></span>

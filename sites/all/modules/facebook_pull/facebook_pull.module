@@ -5,6 +5,7 @@
  * @file
  * Default cache time.
  */
+
 define('FACEBOOK_PULL_CACHETIME', 1200);
 
 
@@ -37,7 +38,6 @@ function facebook_pull_theme($existing, $type, $theme, $path) {
 /**
  * Implementation of hook_perm().
  */
-
 function facebook_pull_permission() {
   return array(
     'administer facebook pull' => array(
@@ -105,7 +105,6 @@ function facebook_pull_block_view($delta = '') {
 /**
  * Implementation hook_ctools_plugin_api().
  */
-
 function facebook_pull_ctools_plugin_api($module, $api) {
   return array('version' => 1);
 }
@@ -332,11 +331,34 @@ function _facebook_pull_render_block() {
  * Implements hook_preprocess_HOOK();.
  */
 function facebook_pull_preprocess_facebook_pull_feed(&$variables) {
-  global $is_https;
-  foreach ($variables['items'] as &$item) {
-    $from = &$item->from;
-    $scheme = $is_https ? 'https' : 'http';
-    $from->picture = "$scheme://graph.facebook.com/$from->id/picture";
+  if ($variables['items']) {
+    global $is_https;
+    foreach ($variables['items'] as &$item) {
+      $from = &$item->from;
+      $scheme = $is_https ? 'https' : 'http';
+      $from->picture = "$scheme://graph.facebook.com/$from->id/picture";
+      if (isset($from->name)) {
+        $from->name = check_plain($from->name);
+      }
+      if (isset($from->id)) {
+        $from->id = check_plain($from->id);
+      }
+      if (isset($item->story)) {
+        $item->story = check_plain($item->story);
+      }
+      if (isset($item->description)) {
+        $item->description = check_plain($item->description);
+      }
+      if (isset($item->question)) {
+        $item->question = check_plain($item->question);
+      }
+      if (isset($item->message)) {
+        $item->message = check_plain($item->message);
+      }
+      if (isset($item->picture)) {
+        $item->picture = check_url($item->picture);
+      }
+    }
   }
 }
 
@@ -344,7 +366,26 @@ function facebook_pull_preprocess_facebook_pull_feed(&$variables) {
  * Implements hook_preprocess_HOOK();.
  */
 function facebook_pull_preprocess_facebook_pull_notes(&$variables) {
-  global $is_https;
-  $scheme = $is_https ? 'https' : 'http';
-  $variables['picture'] = "$scheme://graph.facebook.com/$variables[feedid]/picture";
+  if ($variables['feedid']) {
+    global $is_https;
+    $scheme = $is_https ? 'https' : 'http';
+    $variables['picture'] = "$scheme://graph.facebook.com/$variables[feedid]/picture";
+    $variables['feedid'] = check_plain($variables['feedid']);
+  }
+  if ($variables['items']) {
+    foreach ($variables['items'] as &$item) {
+      if (isset($item->link['href'])) {
+        $item->link['href'] = check_url($item->link['href']);
+      }
+      if (isset($item->summary)) {
+        $item->summary = check_plain($item->summary);
+      }
+      if (isset($item->published)) {
+        $item->published = check_plain($item->published);
+      }
+      if (isset($item->title)) {
+        $item->title = check_plain($item->title);
+      }
+    }
+  }
 }
